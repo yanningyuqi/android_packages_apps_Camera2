@@ -713,26 +713,6 @@ public class VideoModule implements CameraModule,
         mAudioEncoder = AUDIO_ENCODER_TABLE.get(audioEncoder);
 
         Log.v(TAG, "Audio Encoder selected = " +mAudioEncoder);
-
-        String minutesStr = mPreferences.getString(
-              CameraSettings.KEY_VIDEO_DURATION,
-              mActivity.getString(R.string.pref_camera_video_duration_default));
-        int minutes = -1;
-        try {
-            minutes = Integer.parseInt(minutesStr);
-        } catch(NumberFormatException npe) {
-            // use default value continue
-            minutes = Integer.parseInt(mActivity.getString(
-                         R.string.pref_camera_video_duration_default));
-        }
-        if (minutes == -1) {
-            // User wants lowest, set 30s */
-            mMaxVideoDurationInMs = 30000;
-        } else {
-            // 1 minute = 60000ms
-            mMaxVideoDurationInMs = 60000 * minutes;
-        }
-
    }
 
     private void readVideoPreferences() {
@@ -762,15 +742,9 @@ public class VideoModule implements CameraModule,
             }
         }
 
-        // Set video duration limit. The limit is read from the preference,
-        // unless it is specified in the intent.
-        if (intent.hasExtra(MediaStore.EXTRA_DURATION_LIMIT)) {
-            int seconds =
-                    intent.getIntExtra(MediaStore.EXTRA_DURATION_LIMIT, 0);
-            mMaxVideoDurationInMs = 1000 * seconds;
-        } else {
-            mMaxVideoDurationInMs = CameraSettings.getMaxVideoDuration(mActivity);
-        }
+        // Set video duration limit. There is no limit
+	// by default.
+        mMaxVideoDurationInMs = 0;
 
         // Read time lapse recording interval.
         String frameIntervalStr = mPreferences.getString(

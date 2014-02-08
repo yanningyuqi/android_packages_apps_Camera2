@@ -72,7 +72,6 @@ public class CameraSettings {
 
     public static final String KEY_VIDEO_ENCODER = "pref_camera_videoencoder_key";
     public static final String KEY_AUDIO_ENCODER = "pref_camera_audioencoder_key";
-    public static final String KEY_VIDEO_DURATION = "pref_camera_video_duration_key";
     public static final String EXPOSURE_DEFAULT_VALUE = "0";
 
     public static final int CURRENT_VERSION = 5;
